@@ -1,0 +1,62 @@
+
+Q.1. Collect the following basic information about your machine using proc. How many CPU cores does the machine have? How much memory, and what fraction of it is free? How many context switches has the system performed since bootup? How many processes has it forked since bootup?
+
+SOL.
+A.	CPU cores
+	command- lscpu
+	
+
+	cpu cores= no. Of Thread* no. Of cores per socket* no. Of sockets 
+		   = 2*2*1
+		   = 4
+B. Memory size
+ command-cat proc/meminfo
+
+	memory free=170236kb
+C. Context switches a system has performed-
+	Command- pidstat -w
+
+	
+D. forks after bootup:
+ command- vmstat -f
+
+
+Q.2. Recall that every process runs in one of two modes at any time: user mode and kernel mode. It
+runs in user mode when it is executing instructions / code from the user. It executes in kernel
+mode when running code corresponding to system calls etc. Compare (qualitatively) the
+programs cpu and cpu-print in terms of the amount of time each spends in the user mode and
+kernel mode, using information from the proc file system. For examples, which programs spend
+more time in kernel mode than in user mode, and vice versa? Read through their code and
+justify your observations.
+Sol. For cpu-print.c
+First execute the file cpu-print.c.
+then open new terminal and run command “top”.it will show the pid of execution process of cpu-print.c .
+copy this pid and run following command- cat /proc/pid/stat.
+It shows folloing outputs:
+
+Now open man proc command, go to proc/pid/stat
+
+user time=2546 clock ticks
+Kernel time=7296 clock ticks
+
+For cpu.c
+User time= 2331 clock ticks
+Kernel time=0 clock ticks
+
+Q.3. Open a bash shell. Find its pid. Write down the process tree starting from the first init process
+(pid = 1) to your bash shell, and describe how you obtained it. You may want to use the pstree
+command.
+Sol.
+First command ‘ps’ on termunal and get pid of bash shell.
+Then command-”pstree -s -p pid”
+
+pstree= show the tree of running processes.
+-s=show parent processes of the specified process.
+-p=show pid in parantheses.
+
+Q.4. Consider the following commands that you can type in the bash shell: cd, ls, history, ps.
+Which of these are system programs that are simply executed by the bash shell, and which are implemented by the bash code itself?
+Sol.
+system programs that are simply executed by the bash shell:cd, history.
+Commands implemented by the bash code itself are: ls,ps
+
